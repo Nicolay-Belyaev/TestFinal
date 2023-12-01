@@ -16,24 +16,23 @@ public class UserInterface {
 
     public void getDataFromUser() {
         Scanner in = new Scanner(System.in);
-        System.out.println("Введите первый массив (несколько целых чисел через пробел)");
+        System.out.print("Введите первый массив (несколько целых чисел через пробел): ");
         String firstArray = in.nextLine();
-        System.out.println("Введите второй массив (несколько целых чисел через пробел)");
+        System.out.print("Введите второй массив (несколько целых чисел через пробел): ");
         String secondArray = in.nextLine();
-        in.close();
         convertData(firstArray, secondArray);
     }
 
     public void showResult(int result) {
         switch (result) {
             case 0:
-                System.out.println("Средние значения равны");
+                System.out.println("Средние значения равны.");
                 break;
             case 1:
-                System.out.println("Первый список имеет большее среднее значение");
+                System.out.println("Первый список имеет большее среднее значение.");
                 break;
             case 2:
-                System.out.println("Второй список имеет большее среднее значение");
+                System.out.println("Второй список имеет большее среднее значение.");
                 break;
         }
     }
