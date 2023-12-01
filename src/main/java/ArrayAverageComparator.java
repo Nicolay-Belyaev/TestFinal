@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.List;
 import java.util.OptionalDouble;
 
 // в целом, для данной задачи было бы проще все "служебные" функции сделать private, вызывать
@@ -7,9 +8,9 @@ import java.util.OptionalDouble;
 public class ArrayAverageComparator {
     private final int compareResult;
 
-    public ArrayAverageComparator(int[] firstArray, int[] secondArray) {
+    public ArrayAverageComparator(Integer[] firstArray, Integer[] secondArray) {
         if (firstArray.length == 0 || secondArray.length == 0) {
-            throw new IllegalArgumentException("None of array can't have zero length");
+            throw new IllegalArgumentException("None of arrays can't have zero length");
         }
         float firstAverage = averageCalculator(firstArray);
         float secondAverage = averageCalculator(secondArray);
@@ -20,8 +21,12 @@ public class ArrayAverageComparator {
         return compareResult;
     }
 
-    private float averageCalculator(int[] array) {
-        return (float) Arrays.stream(array).sum() / array.length;
+    private float averageCalculator(Integer[] array) {
+        Integer sum = 0;
+        for (Integer integer : array) {
+            sum += integer;
+        }
+        return (float) sum / array.length;
     }
 
     private int averageComparator(float averageFirst, float averageSecond) {

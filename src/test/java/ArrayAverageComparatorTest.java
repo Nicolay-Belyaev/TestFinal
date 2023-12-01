@@ -16,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 // используют эти private-методы, но мы тут веников не вяжем, а вяжем тесты, походу знакомясь с понятием рефлексии (Reflection API).
 class ArrayAverageComparatorTest {
     private final Class<?> reflection = Class.forName("ArrayAverageComparator");
-    private final Object reflectionClass = reflection.getConstructor(int[].class, int[].class).newInstance(new int[]{1, 2, 3}, new int[]{1, 2, 3});
+    private final Object reflectionClass = reflection.getConstructor(Integer[].class, Integer[].class)
+            .newInstance(new Integer[]{1, 2, 3}, new Integer[]{1, 2, 3});
 
     // ради проброса исключений
     ArrayAverageComparatorTest() throws
@@ -45,10 +46,10 @@ class ArrayAverageComparatorTest {
     @DisplayName("Вычисление средних значений")
     void averageCalculatorTest() {
         try {
-            Method averageCalculator = reflectionClass.getClass().getDeclaredMethod("averageCalculator", int[].class);
+            Method averageCalculator = reflectionClass.getClass().getDeclaredMethod("averageCalculator", Integer[].class);
             averageCalculator.setAccessible(true);
 
-            assertEquals((float) 2, averageCalculator.invoke(reflectionClass, new int[]{1, 2, 3}));
+            assertEquals((float) 2, averageCalculator.invoke(reflectionClass, (Object) new Integer[]{1, 2, 3}));
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -57,21 +58,21 @@ class ArrayAverageComparatorTest {
     @Test
     @DisplayName("Среднее первого массива больше среднего второго")
     void averageComparatorTestFirst() {
-        ArrayAverageComparator comparator = new ArrayAverageComparator(new int[]{1, 2, 3}, new int[]{1, 1, 1});
+        ArrayAverageComparator comparator = new ArrayAverageComparator(new Integer[]{1, 2, 3}, new Integer[]{1, 1, 1});
         assertEquals(1, comparator.getCompareResult());
     }
 
     @Test
     @DisplayName("Среднее второго массива больше среднего первого")
     void averageComparatorTestSecond() {
-        ArrayAverageComparator comparator = new ArrayAverageComparator(new int[]{1, 1, 1}, new int[]{1, 2, 3});
+        ArrayAverageComparator comparator = new ArrayAverageComparator(new Integer[]{1, 1, 1}, new Integer[]{1, 2, 3});
         assertEquals(2, comparator.getCompareResult());
     }
 
     @Test
     @DisplayName("Среднее первого и второго массива равны")
     void averageComparatorTestEquals() {
-        ArrayAverageComparator comparator = new ArrayAverageComparator(new int[]{1, 1, 3}, new int[]{1, 1, 3});
+        ArrayAverageComparator comparator = new ArrayAverageComparator(new Integer[]{1, 1, 3}, new Integer[]{1, 1, 3});
         assertEquals(0, comparator.getCompareResult());
     }
 
@@ -79,8 +80,8 @@ class ArrayAverageComparatorTest {
     @DisplayName("Один из массивов пуст")
     void averageComparatorTestIllegalArg() {
         assertThrows(IllegalArgumentException.class, () ->
-                new ArrayAverageComparator(new int[]{1, 1, 3}, new int[]{}));
+                new ArrayAverageComparator(new Integer[]{1, 1, 3}, new Integer[]{}));
         assertThrows(IllegalArgumentException.class, () ->
-                new ArrayAverageComparator(new int[]{}, new int[]{1, 1, 3}));
+                new ArrayAverageComparator(new Integer[]{}, new Integer[]{1, 1, 3}));
     }
 }
