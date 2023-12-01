@@ -3,11 +3,11 @@ public class Main {
         UserInterface userInterface = new UserInterface();
         userInterface.getDataFromUser();
 
-        ArrayAverageComparator comporator = 
+        ArrayAverageComparator comparator =
                 new ArrayAverageComparator(userInterface.getFirstArray(), 
                                            userInterface.getSecondArray());
 
-        userInterface.showResult(comporator.getCompareResult());
+        userInterface.showResult(comparator.getCompareResult());
 
 
     }
